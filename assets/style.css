@@ -1,0 +1,587 @@
+/* TEMA DEĞİŞKENLERİ */
+:root {
+  --ana-renk: #ff8c42;
+  --vurgu-renk: #ff7733;
+  --arka-plan: #1a1a1a;
+  --kart-arka: #2a2a2a;
+  --yazi-renk: #ffffff;
+  --ikincil-yazi: #cccccc;
+}
+
+body.light-mode {
+  --arka-plan: #f5f5f5;
+  --kart-arka: #ffffff;
+  --yazi-renk: #1a1a1a;
+  --ikincil-yazi: #666666;
+}
+
+body {
+  background-color: var(--arka-plan);
+  color: var(--yazi-renk);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* NAVBAR */
+.navbar {
+  background-color: var(--kart-arka) !important;
+  padding: 10px 32px;
+  border-bottom: 1px solid var(--ana-renk);
+}
+
+.navbar .nav-link {
+  padding: 8px 15px;
+  font-size: 15px;
+  color: var(--yazi-renk);
+}
+
+.navbar .nav-link:hover {
+  color: var(--ana-renk);
+}
+
+.navbar-nav {
+  gap: 8px;
+}
+
+.navbar-brand {
+  color: var(--ana-renk) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--kart-arka);
+  padding: 8px 0;
+  border: 1px solid var(--ana-renk);
+  border-radius: 5px;
+}
+
+.dropdown-item {
+  color: var(--yazi-renk);
+  padding: 10px 18px;
+}
+
+.dropdown-item:hover {
+  background-color: var(--ana-renk);
+  color: #000;
+}
+
+/* ARAMA */
+.search-box {
+  width: 420px;
+}
+
+.search-box .input-group {
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.search-box .input-group-text {
+  background-color: var(--kart-arka);
+  border: none;
+  color: var(--ana-renk);
+  padding: 0 15px;
+}
+
+.search-box .form-control {
+  height: 40px;
+  font-size: 15px;
+  background-color: var(--kart-arka);
+  border: none;
+  color: var(--yazi-renk);
+  padding: 0 15px;
+}
+
+.search-box .form-control:focus {
+  box-shadow: none;
+  background-color: var(--kart-arka);
+}
+
+.search-box .btn {
+  height: 40px;
+  padding: 0 20px;
+  border: none;
+  background-color: var(--ana-renk);
+  color: #000;
+  font-weight: 600;
+}
+
+.search-box .btn:hover {
+  background-color: var(--vurgu-renk);
+}
+
+@media (max-width: 992px) {
+  .navbar {
+    padding: 10px 16px;
+  }
+  .search-box {
+    width: 100%;
+    margin: 15px 0;
+  }
+}
+
+/* HERO SECTION */
+.hero-section {
+  min-height: 100vh;
+  background: linear-gradient(rgba(11, 18, 32, 0.85), rgba(11, 18, 32, 0.85)),
+    url("fotolar/PhotoshopExtension_Image\ \(11\).png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 100px 0;
+}
+
+.min-vh-75 {
+  min-height: 75vh;
+}
+
+.hero-section h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.hero-section .text-primary {
+  color: var(--ana-renk) !important;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  color: var(--ikincil-yazi);
+  max-width: 500px;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.hero-section .btn {
+  border-radius: 5px;
+  padding: 14px 35px;
+  font-weight: 600;
+  font-size: 16px;
+  border: 2px solid transparent;
+}
+
+.hero-section .btn-primary {
+  background-color: var(--ana-renk);
+  border-color: var(--ana-renk);
+  color: #000;
+}
+
+.hero-section .btn-primary:hover {
+  background-color: var(--vurgu-renk);
+}
+
+.hero-section .btn-outline-light {
+  border-color: var(--yazi-renk);
+  color: var(--yazi-renk);
+}
+
+.hero-section .btn-outline-light:hover {
+  background-color: var(--yazi-renk);
+  color: var(--arka-plan);
+}
+
+/* GÜNÜN SÖZÜ */
+.hero-image-container {
+  position: relative;
+  min-height: 400px;
+}
+
+.gunun-sozu-hero {
+  position: absolute;
+  top: 90px;
+  right: 40px;
+  max-width: 440px;
+  padding: 30px 34px;
+  background: rgba(245, 240, 230, 0.95);
+  border-left: 5px solid var(--ana-renk);
+  border-radius: 5px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.gunun-sozu-hero::before {
+  content: "GÜNÜN ÖZLÜ SÖZÜ";
+  display: block;
+  margin-bottom: 16px;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: #b45309;
+}
+
+.gunun-sozu-hero p {
+  margin: 0;
+  font-size: 1.3rem;
+  line-height: 1.65;
+  font-style: italic;
+  font-family: "Georgia", "Times New Roman", serif;
+  color: #1f2937;
+}
+
+.gunun-sozu-hero span {
+  display: block;
+  margin-top: 18px;
+  font-size: 0.95rem;
+  font-family: "Georgia", serif;
+  color: #6b7280;
+  text-align: right;
+}
+
+@media (max-width: 992px) {
+  .hero-section {
+    padding: 60px 0;
+    text-align: center;
+  }
+  
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero-section p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .gunun-sozu-hero {
+    position: static;
+    margin: 40px auto 0;
+    max-width: 90%;
+  }
+}
+
+/* PODCAST SECTION */
+.podcast-section {
+  background-color: var(--kart-arka);
+  padding: 60px 0;
+  border-top: 1px solid #3a3a3a;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.podcast-cover {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, var(--ana-renk), var(--vurgu-renk));
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.podcast-cover i {
+  font-size: 80px;
+  color: #fff;
+}
+
+.podcast-label {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--ana-renk);
+  font-weight: 600;
+}
+
+.podcast-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--yazi-renk);
+  margin-bottom: 15px;
+}
+
+.podcast-desc {
+  font-size: 1.1rem;
+  color: var(--ikincil-yazi);
+  line-height: 1.6;
+}
+
+.podcast-actions .btn {
+  border-radius: 5px;
+  padding: 12px 30px;
+  font-weight: 600;
+}
+
+/* KARTLAR */
+.card {
+  background-color: var(--kart-arka);
+  color: var(--yazi-renk);
+  border: 1px solid #3a3a3a;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  border-color: var(--ana-renk);
+}
+
+.card img {
+  border-radius: 5px 5px 0 0;
+  height: 280px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-text {
+  font-size: 14px;
+  color: var(--ikincil-yazi);
+  margin-bottom: 12px;
+}
+
+.card .btn {
+  border-radius: 5px;
+  border-width: 2px;
+  padding: 8px 24px;
+  font-weight: 600;
+}
+
+.card .btn-outline-primary {
+  border-color: var(--ana-renk);
+  color: var(--ana-renk);
+}
+
+.card .btn-outline-primary:hover {
+  background-color: var(--ana-renk);
+  color: #000;
+}
+
+.card .btn-outline-secondary {
+  border-color: var(--ikincil-yazi);
+  color: var(--ikincil-yazi);
+}
+
+.card .btn-outline-secondary:hover {
+  background-color: var(--ikincil-yazi);
+  color: var(--arka-plan);
+}
+
+/* BAŞLIK */
+section h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  position: relative;
+  padding-left: 20px;
+}
+
+section h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 35px;
+  background-color: var(--ana-renk);
+  border-radius: 5px;
+}
+
+/* FAVORİ VE YILDIZ */
+.favori-ikon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 42px;
+}
+
+.favori-ikon:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.favori-ikon.aktif i {
+  color: #ff4757;
+}
+
+.yildiz-kutusu {
+  margin: 12px 0;
+}
+
+.yildiz-kutusu i {
+  font-size: 18px;
+  color: #ffd700;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.yildiz-kutusu i.dolu {
+  color: #ffd700;
+}
+
+/* KİTAP EKLEME FORMU */
+.kitap-ekleme-kutu {
+  background-color: var(--kart-arka);
+  padding: 40px;
+  border-radius: 5px;
+  border: 1px solid var(--ana-renk);
+}
+
+.kitap-ekleme-kutu h3 {
+  color: var(--ana-renk);
+}
+
+.kitap-ekleme-kutu .form-label {
+  color: var(--yazi-renk);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.kitap-ekleme-kutu .form-control,
+.kitap-ekleme-kutu .form-select {
+  background-color: var(--arka-plan);
+  border: 1px solid #3a3a3a;
+  color: var(--yazi-renk);
+  padding: 12px;
+  border-radius: 5px;
+}
+
+.kitap-ekleme-kutu .form-control:focus,
+.kitap-ekleme-kutu .form-select:focus {
+  background-color: var(--arka-plan);
+  border-color: var(--ana-renk);
+  color: var(--yazi-renk);
+  box-shadow: 0 0 0 0.2rem rgba(255, 140, 66, 0.25);
+}
+
+/* FOOTER */
+.footer {
+  background-color: var(--kart-arka);
+  padding: 50px 0 20px;
+  margin-top: 80px;
+  border-top: 2px solid var(--ana-renk);
+}
+
+.footer h5 {
+  color: var(--ana-renk);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.footer ul {
+  padding: 0;
+}
+
+.footer ul li {
+  margin-bottom: 10px;
+}
+
+.footer ul li a {
+  color: var(--ikincil-yazi);
+  text-decoration: none;
+}
+
+.footer ul li a:hover {
+  color: var(--ana-renk);
+}
+
+.footer p {
+  margin-bottom: 8px;
+}
+
+.footer hr {
+  margin: 30px 0;
+  opacity: 0.2;
+}
+
+/* BOOTSTRAP OVERRIDE */
+.btn-primary {
+  background-color: var(--ana-renk);
+  border-color: var(--ana-renk);
+  color: #000;
+}
+
+.btn-primary:hover {
+  background-color: var(--vurgu-renk);
+  border-color: var(--vurgu-renk);
+}
+
+.text-primary {
+  color: var(--ana-renk) !important;
+}
+
+.bg-dark {
+  background-color: var(--arka-plan) !important;
+}
+
+.text-light {
+  color: var(--yazi-renk) !important;
+}
+
+
+
+/* === PODCAST SAYFASI TURUNCU TEMA === */
+
+:root {
+    --orange: #ff9f1c;
+    --orange-soft: rgba(255, 159, 28, 0.15);
+}
+
+/* Başlık */
+.section-title {
+    color: #fff;
+    position: relative;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: var(--orange);
+    margin: 12px auto 0;
+    border-radius: 10px;
+}
+
+/* Podcast kartları */
+.podcast-card {
+    background: linear-gradient(180deg, #111, #0b0b0b);
+    border: 1px solid #222;
+    transition: all 0.3s ease;
+}
+
+.podcast-card:hover {
+    border-color: var(--orange);
+    transform: translateY(-6px);
+    box-shadow: 0 0 20px var(--orange-soft);
+}
+
+.podcast-card h5 {
+    color: var(--orange);
+    font-weight: 600;
+}
+
+/* Audio bar */
+.podcast-audio {
+    border-radius: 8px;
+    background-color: #111;
+}
+
+/* Chrome / Edge audio rengi */
+audio::-webkit-media-controls-panel {
+    background-color: #111;
+}
+
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-mute-button {
+    filter: invert(1);
+}
+
+/* Ana sayfaya dön butonu */
+.btn-outline-light:hover {
+    background-color: var(--orange);
+    border-color: var(--orange);
+    color: #000;
+}

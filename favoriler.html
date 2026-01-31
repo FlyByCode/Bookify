@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sevdiğim Kitaplar - Bookify</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body class="bg-dark">
+
+    <div class="container py-5">
+        <div class="text-center mb-4">
+            <a href="index.html" class="btn btn-outline-light mb-3">← Ana Sayfaya Dön</a>
+            <h1 class="text-light"><i class="fa-solid fa-heart text-danger"></i> Sevdiğim Kitaplar</h1>
+            <p class="text-secondary">Favori olarak işaretlediğin kitaplar</p>
+        </div>
+
+        <div class="row" id="favoriKitaplar">
+            <!-- Buraya JavaScript ile favori kitaplar eklenecek -->
+        </div>
+
+        <div id="bosMesaj" class="text-center text-secondary" style="display: none;">
+            <i class="fa-regular fa-heart" style="font-size: 80px; margin: 50px 0;"></i>
+            <h3>Henüz favori kitabın yok</h3>
+            <p>Beğendiğin kitaplara kalp işareti koyarak buraya ekleyebilirsin.</p>
+            <a href="index.html" class="btn btn-success mt-3">Kitapları Keşfet</a>
+        </div>
+    </div>
+
+    <script>
+        // Favori kitapları göster
+        window.addEventListener('DOMContentLoaded', function() {
+            var favoriler = localStorage.getItem('favoriler');
+            var puanlar = localStorage.getItem('puanlar');
+            var puanListesi = puanlar ? JSON.parse(puanlar) : {};
+            
+            if (favoriler) {
+                var favoriListesi = JSON.parse(favoriler);
+                
+                if (favoriListesi.length === 0) {
+                    document.getElementById('bosMesaj').style.display = 'block';
+                } else {
+                    var container = document.getElementById('favoriKitaplar');
+                    
+                    favoriListesi.forEach(function(kitapIsim) {
+                        var puan = puanListesi[kitapIsim] || 0;
+                        var yildizlar = '';
+                        
+                        for (var i = 1; i <= 5; i++) {
+                            if (i <= puan) {
+                                yildizlar += '<i class="fa-solid fa-star" style="color: #ffd700;"></i> ';
+                            } else {
+                                yildizlar += '<i class="fa-regular fa-star" style="color: #ffd700;"></i> ';
+                            }
+                        }
+                        
+                        var kartHTML = `
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 text-light">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fa-solid fa-heart text-danger"></i> ${kitapIsim}
+                                        </h5>
+                                        <div class="mb-2">${yildizlar}</div>
+                                        <button class="btn btn-outline-danger btn-sm" onclick="favoriCikar('${kitapIsim}')">
+                                            <i class="fa-solid fa-trash"></i> Favorilerden Çıkar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        
+                        container.innerHTML += kartHTML;
+                    });
+                }
+            } else {
+                document.getElementById('bosMesaj').style.display = 'block';
+            }
+        });
+        
+        // Favoriden çıkar
+        function favoriCikar(kitapIsim) {
+            var favoriler = localStorage.getItem('favoriler');
+            var favoriListesi = favoriler ? JSON.parse(favoriler) : [];
+            
+            var index = favoriListesi.indexOf(kitapIsim);
+            if (index > -1) {
+                favoriListesi.splice(index, 1);
+                localStorage.setItem('favoriler', JSON.stringify(favoriListesi));
+                location.reload();
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
