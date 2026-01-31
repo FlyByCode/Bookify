@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Okur Profili - Bookify</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: #faf9f7;
+            min-height: 100vh;
+            color: #374151;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Merriweather', serif;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 32px 16px;
+        }
+
+        /* Intro Screen */
+        .intro-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        .intro-content {
+            max-width: 450px;
+            width: 100%;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .intro-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .icon-circle {
+            width: 64px;
+            height: 64px;
+            background-color: #ff8c42;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .icon-circle svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+
+        .intro-title {
+            font-size: 28px;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        .intro-desc {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .stats-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #f3f4f6;
+            margin-bottom: 32px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .stat-item.amber {
+            background-color: #fff7ed;
+        }
+
+        .stat-item.emerald {
+            background-color: #ecfdf5;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .stat-item.amber .stat-number {
+            color: #ea580c;
+        }
+
+        .stat-item.emerald .stat-number {
+            color: #047857;
+        }
+
+        .stat-label {
+            font-size: 14px;
+        }
+
+        .stat-item.amber .stat-label {
+            color: #f97316;
+        }
+
+        .stat-item.emerald .stat-label {
+            color: #059669;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background-color: #1f2937;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #374151;
+        }
+
+        .time-hint {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 14px;
+            margin-top: 24px;
+        }
+
+        /* Quiz Screen */
+        .quiz-screen {
+            display: none;
+        }
+
+        .progress-header {
+            margin-bottom: 32px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background-color: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #ff8c42;
+            border-radius: 999px;
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #f3f4f6;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .question-text {
+            font-size: 20px;
+            color: #1f2937;
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #f9fafb;
+            border: 2px solid #f3f4f6;
+            border-radius: 12px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .option-btn:hover {
+            background-color: #f3f4f6;
+            border-color: #e5e7eb;
+        }
+
+        .option-btn.selected {
+            background-color: #fff7ed;
+            border-color: #ff8c42;
+        }
+
+        .option-letter {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #e5e7eb;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .option-btn.selected .option-letter {
+            background-color: #ff8c42;
+            color: white;
+        }
+
+        .option-text {
+            font-size: 15px;
+            color: #4b5563;
+            line-height: 1.4;
+        }
+
+        .option-btn.selected .option-text {
+            color: #1f2937;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+
+        .btn-nav {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-prev {
+            background: transparent;
+            color: #4b5563;
+        }
+
+        .btn-prev:hover:not(:disabled) {
+            background-color: #f3f4f6;
+        }
+
+        .btn-next {
+            background-color: #1f2937;
+            color: white;
+            font-weight: 500;
+        }
+
+        .btn-next:hover:not(:disabled) {
+            background-color: #374151;
+        }
+
+        .btn-next.finish {
+            background-color: #059669;
+        }
+
+        .btn-next.finish:hover:not(:disabled) {
+            background-color: #047857;
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .btn-nav svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Question Dots */
+        .question-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #d1d5db;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dot.current {
+            background-color: #ff8c42;
+            transform: scale(1.3);
+        }
+
+        .dot.answered {
+            background-color: #34d399;
+        }
+
+        /* Result Screen */
+        .result-screen {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .result-header {
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .result-header.amber { background-color: #fff7ed; }
+        .result-header.rose { background-color: #fff1f2; }
+        .result-header.indigo { background-color: #eef2ff; }
+        .result-header.emerald { background-color: #ecfdf5; }
+
+        .result-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .result-title {
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+
+        .result-title.amber { color: #ea580c; }
+        .result-title.rose { color: #be123c; }
+        .result-title.indigo { color: #4338ca; }
+        .result-title.emerald { color: #047857; }
+
+        .result-subtitle {
+            color: #4b5563;
+            font-style: italic;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #f3f4f6;
+            margin-bottom: 24px;
+        }
+
+        .result-card h3 {
+            color: #1f2937;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .result-card p {
+            line-height: 1.7;
+            color: #4b5563;
+        }
+
+        /* Score Bars */
+        .score-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .score-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .score-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .score-label {
+            color: #4b5563;
+        }
+
+        .score-percent {
+            color: #9ca3af;
+        }
+
+        .score-bar {
+            height: 8px;
+            background-color: #f3f4f6;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .score-fill {
+            height: 100%;
+            border-radius: 999px;
+            transition: width 0.7s ease;
+        }
+
+        .score-fill.amber { background-color: #f97316; }
+        .score-fill.rose { background-color: #f43f5e; }
+        .score-fill.indigo { background-color: #6366f1; }
+        .score-fill.emerald { background-color: #10b981; }
+
+        /* Genre Tags */
+        .genre-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .genre-tag {
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 14px;
+        }
+
+        .genre-tag.amber { background-color: #fff7ed; color: #ea580c; }
+        .genre-tag.rose { background-color: #fff1f2; color: #be123c; }
+        .genre-tag.indigo { background-color: #eef2ff; color: #4338ca; }
+        .genre-tag.emerald { background-color: #ecfdf5; color: #047857; }
+
+        /* Author Grid */
+        .author-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .author-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background-color: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .author-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #e5e7eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 500;
+            color: #6b7280;
+        }
+
+        .author-name {
+            font-size: 14px;
+            color: #374151;
+        }
+
+        /* Book List */
+        .book-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .book-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background-color: #f9fafb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .book-item:hover {
+            background-color: #f3f4f6;
+        }
+
+        .book-item:active {
+            transform: scale(0.98);
+        }
+
+        .book-cover {
+            width: 32px;
+            height: 40px;
+            background: linear-gradient(to bottom, #d1d5db, #9ca3af);
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .book-title {
+            color: #374151;
+            flex: 1;
+        }
+
+        .copy-hint {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .book-item:hover .copy-hint {
+            color: #6b7280;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: #1f2937;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Header */
+        .top-header {
+            background-color: white;
+            border-bottom: 1px solid #f3f4f6;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .home-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .home-link:hover {
+            background-color: #f9fafb;
+            color: #374151;
+        }
+
+        .home-link svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .header-title {
+            font-family: 'Merriweather', serif;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .header-spacer {
+            width: 100px;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 14px;
+            margin-top: 24px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .author-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-text {
+                font-size: 18px;
+            }
+            
+            .result-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="introScreen" class="intro-screen">
+        <div class="intro-content">
+            <div class="intro-header">
+                <div class="icon-circle">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+                <h1 class="intro-title">Okur Profilin</h1>
+                <p class="intro-desc">12 soru ile okuma alışkanlıklarını ve kitap zevkini keşfet. Sana özel kitap ve yazar önerileri al.</p>
+            </div>
+
+            <div class="stats-card">
+                <div class="stats-grid">
+                    <div class="stat-item amber">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Soru</div>
+                    </div>
+                    <div class="stat-item emerald">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Okur Tipi</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-primary" onclick="startQuiz()">Teste Başla</button>
+            <p class="time-hint">Yaklaşık 3 dakika</p>
+        </div>
+    </div>
+
+    <div id="quizScreen" class="quiz-screen">
+        <div class="container">
+            <div class="progress-header">
+                <div class="progress-info">
+                    <span id="questionCounter">Soru 1 / 12</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="questionCard">
+                <h2 class="question-text" id="questionText"></h2>
+                <div class="options-list" id="optionsList"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn-nav btn-prev" id="btnPrev" onclick="prevQuestion()" disabled>
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    Önceki
+                </button>
+                <button class="btn-nav btn-next" id="btnNext" onclick="nextQuestion()" disabled>
+                    Sonraki
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="question-dots" id="questionDots"></div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Kitap ismi kopyalandı!</div>
+
+    <div id="resultScreen" class="result-screen">
+        <div class="top-header">
+            <a href="index.html" class="home-link" onclick="goHome(event)">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Ana Sayfa
+            </a>
+            <span class="header-title">Okur Profili</span>
+            <div class="header-spacer"></div>
+        </div>
+        <div class="container">
+            <div class="result-header" id="resultHeader">
+                <p class="result-label">Senin okur profilin</p>
+                <h1 class="result-title" id="resultTitle"></h1>
+                <p class="result-subtitle" id="resultSubtitle"></p>
+            </div>
+
+            <div class="result-card">
+                <p id="resultDescription"></p>
+            </div>
+
+            <div class="result-card">
+                <h3>Profil Dağılımın</h3>
+                <div class="score-list" id="scoreList"></div>
+            </div>
+
+            <div class="result-card">
+                <h3>Senin İçin Kitap Türleri</h3>
+                <div class="genre-list" id="genreList"></div>
+            </div>
+
+            <div class="result-card">
+                <h3>Hoşuna Gidebilecek Yazarlar</h3>
+                <div class="author-grid" id="authorList"></div>
+            </div>
+
+            <div class="result-card">
+                <h3>Kitap Önerileri</h3>
+                <div class="book-list" id="bookList"></div>
+            </div>
+
+            <button class="btn-primary" onclick="restartQuiz()">Testi Tekrar Çöz</button>
+            <p class="footer-text">Okur Profili Testi</p>
+        </div>
+    </div>
+
+    <script>
+        var questions = [
+            {
+                id: 1,
+                text: "Bir kitap seçerken ilk dikkat ettiğin şey nedir?",
+                options: [
+                    { value: "maceraci", label: "Heyecan verici bir olay örgüsü olması" },
+                    { value: "romantik", label: "Duygusal derinliği ve karakterler arası ilişkiler" },
+                    { value: "entelektuel", label: "Felsefi veya düşündürücü temalar içermesi" },
+                    { value: "pratik", label: "Gerçek hayatta işime yarayacak bilgiler sunması" }
+                ]
+            },
+            {
+                id: 2,
+                text: "Hafta sonu için ideal planın hangisi?",
+                options: [
+                    { value: "maceraci", label: "Yeni bir yer keşfetmek veya outdoor aktivite" },
+                    { value: "romantik", label: "Sevdiklerimle kaliteli vakit geçirmek" },
+                    { value: "entelektuel", label: "Sakin bir köşede okumak veya düşünmek" },
+                    { value: "pratik", label: "Ertelediğim işleri halletmek, plan yapmak" }
+                ]
+            },
+            {
+                id: 3,
+                text: "Bir film izlerken en çok neye dikkat edersin?",
+                options: [
+                    { value: "maceraci", label: "Aksiyon sahneleri ve gerilim" },
+                    { value: "romantik", label: "Karakterlerin duyguları ve ilişkileri" },
+                    { value: "entelektuel", label: "Filmin verdiği mesaj ve alt metinler" },
+                    { value: "pratik", label: "Gerçekçi olması ve mantıklı kurgusu" }
+                ]
+            },
+            {
+                id: 4,
+                text: "Zor bir karar vermek zorunda kaldığında nasıl yaklaşırsın?",
+                options: [
+                    { value: "maceraci", label: "İçgüdülerime güvenir, risk almaktan çekinmem" },
+                    { value: "romantik", label: "Kalbimin sesini dinlerim, duygularım yol gösterir" },
+                    { value: "entelektuel", label: "Artıları eksileri analiz eder, mantıklı düşünürüm" },
+                    { value: "pratik", label: "En verimli ve sonuç odaklı seçeneği belirlerim" }
+                ]
+            },
+            {
+                id: 5,
+                text: "Arkadaşların seni nasıl tanımlar?",
+                options: [
+                    { value: "maceraci", label: "Enerjik, spontan ve heyecan arayan" },
+                    { value: "romantik", label: "Anlayışlı, duygusal ve sadık" },
+                    { value: "entelektuel", label: "Derin düşünen, bilgili ve meraklı" },
+                    { value: "pratik", label: "Güvenilir, organize ve çözüm odaklı" }
+                ]
+            },
+            {
+                id: 6,
+                text: "Tatilde en çok ne yapmaktan keyif alırsın?",
+                options: [
+                    { value: "maceraci", label: "Ekstrem sporlar veya macera turları" },
+                    { value: "romantik", label: "Yerel kültürü tanımak, insanlarla sohbet" },
+                    { value: "entelektuel", label: "Müzeler, tarihi yerler, mimari keşfi" },
+                    { value: "pratik", label: "İyi planlanmış, verimli bir gezi programı" }
+                ]
+            },
+            {
+                id: 7,
+                text: "Stresli bir günün sonunda kendini nasıl rahatlatırsın?",
+                options: [
+                    { value: "maceraci", label: "Spor yapar veya dışarı çıkarım" },
+                    { value: "romantik", label: "Müzik dinler veya sevdiklerimle konuşurum" },
+                    { value: "entelektuel", label: "Kitap okur veya belgesel izlerim" },
+                    { value: "pratik", label: "Yarının planını yapar, düzen kurarım" }
+                ]
+            },
+            {
+                id: 8,
+                text: "Bir sohbette en çok hangi konular ilgini çeker?",
+                options: [
+                    { value: "maceraci", label: "Seyahat hikayeleri, yeni deneyimler" },
+                    { value: "romantik", label: "İnsan ilişkileri, duygusal paylaşımlar" },
+                    { value: "entelektuel", label: "Felsefe, bilim, sanat tartışmaları" },
+                    { value: "pratik", label: "Kariyer, finans, kişisel gelişim" }
+                ]
+            },
+            {
+                id: 9,
+                text: "Hayatta en çok neye değer verirsin?",
+                options: [
+                    { value: "maceraci", label: "Özgürlük ve yeni deneyimler" },
+                    { value: "romantik", label: "Sevgi ve anlamlı bağlar" },
+                    { value: "entelektuel", label: "Bilgi ve anlayış" },
+                    { value: "pratik", label: "Başarı ve somut sonuçlar" }
+                ]
+            },
+            {
+                id: 10,
+                text: "Bir hediye alırken genelde ne tercih edersin?",
+                options: [
+                    { value: "maceraci", label: "Deneyim hediyesi (konser, aktivite vs.)" },
+                    { value: "romantik", label: "Kişiye özel, duygusal anlam taşıyan bir şey" },
+                    { value: "entelektuel", label: "Kitap, sanat eseri veya eğitici bir şey" },
+                    { value: "pratik", label: "Kullanışlı ve işe yarar bir şey" }
+                ]
+            },
+            {
+                id: 11,
+                text: "Hayalindeki ev nasıl olurdu?",
+                options: [
+                    { value: "maceraci", label: "Farklı şehirlerde kalabileceğim küçük yerler" },
+                    { value: "romantik", label: "Sıcak, samimi, anılarla dolu bir yuva" },
+                    { value: "entelektuel", label: "Büyük bir kütüphanesi olan sakin bir yer" },
+                    { value: "pratik", label: "Modern, fonksiyonel, her şeyin yerli yerinde olduğu" }
+                ]
+            },
+            {
+                id: 12,
+                text: "Çocukluğunda en sevdiğin aktivite neydi?",
+                options: [
+                    { value: "maceraci", label: "Dışarıda oynamak, keşif yapmak" },
+                    { value: "romantik", label: "Hikaye dinlemek, hayal kurmak" },
+                    { value: "entelektuel", label: "Okumak, bulmaca çözmek" },
+                    { value: "pratik", label: "Bir şeyler inşa etmek, toplamak" }
+                ]
+            }
+        ];
+
+        var profiles = {
+            maceraci: {
+                title: "Maceracı Okur",
+                subtitle: "Sayfalar arasında yolculuk arayan ruh",
+                description: "Sen kitapları bir kaçış aracı olarak görüyorsun. Olay örgüsü seni içine çekmeli, heyecan hiç düşmemeli. Sıkıcı betimlemelerden hoşlanmaz, aksiyona ve sürprizlere bayılırsın.",
+                genres: ["Macera", "Bilim Kurgu", "Gerilim", "Fantastik", "Aksiyon"],
+                authors: ["Dan Brown", "J.K. Rowling", "Brandon Sanderson", "Michael Crichton", "Suzanne Collins"],
+                books: ["Kayıp Sembol", "Dune", "Yüzüklerin Efendisi", "Açlık Oyunları", "Ready Player One"],
+                colorClass: "amber"
+            },
+            romantik: {
+                title: "Romantik Okur",
+                subtitle: "Duygusal derinlik arayan kalp",
+                description: "Karakterlerle bağ kurmak senin için önemli. Onların sevinçlerini, acılarını hissetmek istiyorsun. İyi yazılmış bir diyalog veya duygusal bir sahne seni derinden etkiler.",
+                genres: ["Romantik", "Dram", "Aile Hikayeleri", "Tarihi Roman", "Çağdaş Edebiyat"],
+                authors: ["Elif Şafak", "Orhan Pamuk", "Nicholas Sparks", "Jojo Moyes", "Khaled Hosseini"],
+                books: ["Aşk", "Masumiyet Müzesi", "Uçurtma Avcısı", "Senden Önce Ben", "Normal İnsanlar"],
+                colorClass: "rose"
+            },
+            entelektuel: {
+                title: "Entelektüel Okur",
+                subtitle: "Düşünce denizlerinde yüzen zihin",
+                description: "Kitaplar senin için sadece eğlence değil, aynı zamanda bir öğrenme aracı. Felsefi sorgulamalar, derin analizler ve farklı bakış açıları seni cezbediyor.",
+                genres: ["Felsefe", "Klasik Edebiyat", "Deneme", "Biyografi", "Tarih"],
+                authors: ["Fyodor Dostoyevski", "Albert Camus", "Franz Kafka", "Yuval Noah Harari", "Umberto Eco"],
+                books: ["Suç ve Ceza", "Yabancı", "Dönüşüm", "Sapiens", "Gülün Adı"],
+                colorClass: "indigo"
+            },
+            pratik: {
+                title: "Pratik Okur",
+                subtitle: "Bilgiyi eyleme dönüştüren zeka",
+                description: "Sen kitaplardan somut bir şeyler öğrenmek istiyorsun. Hayatına değer katacak, seni geliştirecek içerikler arıyorsun. Bir kitabı bitirdiğinde uygulamaya geçecek bilgilerle donanmış olmayı bekliyorsun.",
+                genres: ["Kişisel Gelişim", "İş/Kariyer", "Psikoloji", "Bilim", "Finans"],
+                authors: ["Cal Newport", "James Clear", "Daniel Kahneman", "Malcolm Gladwell", "Robert Greene"],
+                books: ["Atomik Alışkanlıklar", "Derin Çalışma", "Hızlı ve Yavaş Düşünmek", "Outliers", "48 Güç Yasası"],
+                colorClass: "emerald"
+            }
+        };
+
+        var currentQuestion = 0;
+        var answers = [];
+        var letters = ['A', 'B', 'C', 'D'];
+
+        function startQuiz() {
+            currentQuestion = 0;
+            answers = [];
+            for (var i = 0; i < questions.length; i++) {
+                answers.push(null);
+            }
+            
+            document.getElementById('introScreen').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'block';
+            document.getElementById('resultScreen').style.display = 'none';
+            
+            renderQuestion();
+            renderDots();
+        }
+
+        function renderQuestion() {
+            var q = questions[currentQuestion];
+            
+            document.getElementById('questionText').textContent = q.text;
+            document.getElementById('questionCounter').textContent = 'Soru ' + (currentQuestion + 1) + ' / ' + questions.length;
+            
+            var answeredCount = answers.filter(function(a) { return a !== null; }).length;
+            var progress = (answeredCount / questions.length) * 100;
+            document.getElementById('progressPercent').textContent = Math.round(progress) + '%';
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            var optionsHtml = '';
+            for (var i = 0; i < q.options.length; i++) {
+                var opt = q.options[i];
+                var selected = answers[currentQuestion] === opt.value ? ' selected' : '';
+                optionsHtml += '<button class="option-btn' + selected + '" onclick="selectOption(\'' + opt.value + '\')">';
+                optionsHtml += '<span class="option-letter">' + letters[i] + '</span>';
+                optionsHtml += '<span class="option-text">' + opt.label + '</span>';
+                optionsHtml += '</button>';
+            }
+            document.getElementById('optionsList').innerHTML = optionsHtml;
+            
+            document.getElementById('btnPrev').disabled = currentQuestion === 0;
+            document.getElementById('btnNext').disabled = answers[currentQuestion] === null;
+            
+            var btnNext = document.getElementById('btnNext');
+            if (currentQuestion === questions.length - 1) {
+                btnNext.innerHTML = 'Sonucu Gör <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>';
+                btnNext.classList.add('finish');
+            } else {
+                btnNext.innerHTML = 'Sonraki <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>';
+                btnNext.classList.remove('finish');
+            }
+            
+            updateDots();
+            
+            var card = document.getElementById('questionCard');
+            card.style.animation = 'none';
+            card.offsetHeight;
+            card.style.animation = 'fadeIn 0.3s ease-out';
+        }
+
+        function renderDots() {
+            var dotsHtml = '';
+            for (var i = 0; i < questions.length; i++) {
+                dotsHtml += '<button class="dot" onclick="goToQuestion(' + i + ')"></button>';
+            }
+            document.getElementById('questionDots').innerHTML = dotsHtml;
+        }
+
+        function updateDots() {
+            var dots = document.querySelectorAll('.dot');
+            for (var i = 0; i < dots.length; i++) {
+                dots[i].classList.remove('current', 'answered');
+                if (i === currentQuestion) {
+                    dots[i].classList.add('current');
+                } else if (answers[i] !== null) {
+                    dots[i].classList.add('answered');
+                }
+            }
+        }
+
+        function selectOption(value) {
+            answers[currentQuestion] = value;
+            renderQuestion();
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (answers[currentQuestion] === null) return;
+            
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function goToQuestion(index) {
+            currentQuestion = index;
+            renderQuestion();
+        }
+
+        function showResult() {
+            var scores = {
+                maceraci: 0,
+                romantik: 0,
+                entelektuel: 0,
+                pratik: 0
+            };
+            
+            for (var i = 0; i < answers.length; i++) {
+                if (answers[i]) {
+                    scores[answers[i]]++;
+                }
+            }
+            
+            var maxType = 'maceraci';
+            var maxScore = 0;
+            for (var type in scores) {
+                if (scores[type] > maxScore) {
+                    maxScore = scores[type];
+                    maxType = type;
+                }
+            }
+            
+            // Kişilik tipini localStorage'a kaydet
+            localStorage.setItem('kisilikTipi', profiles[maxType].title);
+            
+            var profile = profiles[maxType];
+            var total = questions.length;
+            
+            var header = document.getElementById('resultHeader');
+            header.className = 'result-header ' + profile.colorClass;
+            
+            var title = document.getElementById('resultTitle');
+            title.textContent = profile.title;
+            title.className = 'result-title ' + profile.colorClass;
+            
+            document.getElementById('resultSubtitle').textContent = profile.subtitle;
+            document.getElementById('resultDescription').textContent = profile.description;
+            
+            var scoreTypes = [
+                { key: 'maceraci', label: 'Maceracı', colorClass: 'amber' },
+                { key: 'romantik', label: 'Romantik', colorClass: 'rose' },
+                { key: 'entelektuel', label: 'Entelektüel', colorClass: 'indigo' },
+                { key: 'pratik', label: 'Pratik', colorClass: 'emerald' }
+            ];
+            
+            var scoreHtml = '';
+            for (var i = 0; i < scoreTypes.length; i++) {
+                var st = scoreTypes[i];
+                var percent = Math.round((scores[st.key] / total) * 100);
+                scoreHtml += '<div class="score-item">';
+                scoreHtml += '<div class="score-info"><span class="score-label">' + st.label + '</span><span class="score-percent">' + percent + '%</span></div>';
+                scoreHtml += '<div class="score-bar"><div class="score-fill ' + st.colorClass + '" style="width: ' + percent + '%"></div></div>';
+                scoreHtml += '</div>';
+            }
+            document.getElementById('scoreList').innerHTML = scoreHtml;
+            
+            var genreHtml = '';
+            for (var i = 0; i < profile.genres.length; i++) {
+                genreHtml += '<span class="genre-tag ' + profile.colorClass + '">' + profile.genres[i] + '</span>';
+            }
+            document.getElementById('genreList').innerHTML = genreHtml;
+            
+            var authorHtml = '';
+            for (var i = 0; i < profile.authors.length; i++) {
+                var author = profile.authors[i];
+                var initials = author.split(' ').map(function(n) { return n[0]; }).join('');
+                authorHtml += '<div class="author-item">';
+                authorHtml += '<div class="author-avatar">' + initials + '</div>';
+                authorHtml += '<span class="author-name">' + author + '</span>';
+                authorHtml += '</div>';
+            }
+            document.getElementById('authorList').innerHTML = authorHtml;
+            
+            var bookHtml = '';
+            for (var i = 0; i < profile.books.length; i++) {
+                var book = profile.books[i];
+                bookHtml += '<div class="book-item" onclick="copyBookName(\'' + book.replace(/'/g, "\\'") + '\')">';
+                bookHtml += '<div class="book-cover"></div>';
+                bookHtml += '<span class="book-title">' + book + '</span>';
+                bookHtml += '<span class="copy-hint">Tıkla kopyala</span>';
+                bookHtml += '</div>';
+            }
+            document.getElementById('bookList').innerHTML = bookHtml;
+            
+            document.getElementById('introScreen').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'block';
+            
+            window.scrollTo(0, 0);
+        }
+
+        function restartQuiz() {
+            startQuiz();
+            window.scrollTo(0, 0);
+        }
+
+        function goHome(event) {
+            event.preventDefault();
+            window.location.href = 'index.html';
+        }
+
+        function copyBookName(bookName) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(bookName).then(function() {
+                    showToast('"' + bookName + '" kopyalandı!');
+                });
+            } else {
+                var textArea = document.createElement('textarea');
+                textArea.value = bookName;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast('"' + bookName + '" kopyalandı!');
+            }
+        }
+
+        function showToast(message) {
+            var toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(function() {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

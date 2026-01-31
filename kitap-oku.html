@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitap Oku - Bookify</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .kitap-kutu {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #1a1a1a;
+            padding: 40px;
+            border-radius: 12px;
+        }
+
+        .baslik {
+            color: #1db954;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .tur {
+            color: #999;
+            margin-bottom: 30px;
+        }
+
+        .icerik {
+            color: #ddd;
+            line-height: 1.8;
+            font-size: 18px;
+        }
+
+        .premium-uyari {
+            background-color: #2a2a2a;
+            border: 2px solid #1db954;
+            padding: 30px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .geri {
+            margin-bottom: 20px;
+        }
+
+        .geri a {
+            color: #999;
+            text-decoration: none;
+        }
+
+        .geri a:hover {
+            color: #1db954;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="geri">
+        <a href="index.html">← Ana Sayfaya Dön</a>
+    </div>
+
+    <div class="kitap-kutu" id="kitapKutu">
+        <!-- Buraya JavaScript ile kitap içeriği gelecek -->
+    </div>
+
+    <script>
+        // Kitap bilgileri
+        var kitaplar = {
+            '1984': {
+                tur: 'Distopya',
+                premium: true,
+                ozet: 'Winston Smith totaliter bir rejim altında yaşayan sıradan bir vatandaştır. Büyük Birader adlı lider tarafından yönetilen bu toplumda düşünce suçu işlemek en büyük günahtır...',
+                tamMetin: 'Winston Smith totaliter bir rejim altında yaşayan sıradan bir vatandaştır. Büyük Birader adlı lider tarafından yönetilen bu toplumda düşünce suçu işlemek en büyük günahtır. Winston, sistemin kurallarını sorgulamaya başlar ve Julia ile tanışır. İkili gizli bir aşk yaşamaya başlar ancak Düşünce Polisi her yerdedir. Winston ve Julia yakalanır ve işkenceye maruz kalırlar. Sonunda Winston, Büyük Birader\'i sevmeyi öğrenir ve sisteme tam olarak teslim olur.'
+            },
+            'Dune': {
+                tur: 'Bilim Kurgu',
+                premium: false,
+                tamMetin: 'Genç Paul Atreides, ailesiyle birlikte çöl gezegeni Arrakis\'e taşınır. Arrakis, evrende en değerli madde olan baharat\'ın tek kaynağıdır. Paul burada yerel halk Fremen\'lerle tanışır ve onların lideri olur. Zaman içinde Paul, hem siyasi hem de mistik güçler kazanır. Galaksinin kaderini değiştirecek büyük bir savaşa doğru ilerler.'
+            },
+            'Simyacı': {
+                tur: 'Roman',
+                premium: false,
+                tamMetin: 'Genç çoban Santiago, rüyasında gördüğü hazineyi bulmak için İspanya\'dan Mısır\'a doğru bir yolculuğa çıkar. Yolculuk boyunca çeşitli insanlarla tanışır ve hayat dersleri alır. Simyacı adlı bilge bir adamla karşılaşır ve gerçek hazinenin dışarıda değil, içinde olduğunu öğrenir. Santiago, kendi kişisel efsanesini gerçekleştirmenin önemini kavrar.'
+            },
+            'Sefiller': {
+                tur: 'Klasik',
+                premium: true,
+                ozet: 'Jean Valjean, ekmek çaldığı için 19 yıl hapis yatar. Hapisten çıktıktan sonra bir rahip ona iyilik gösterir ve hayatı değişir...',
+                tamMetin: 'Jean Valjean, ekmek çaldığı için 19 yıl hapis yatar. Hapisten çıktıktan sonra bir rahip ona iyilik gösterir ve hayatı değişir. Valjean kimliğini değiştirir ve dürüst bir adam olur. Fantine adlı bir kadına yardım eder ve onun kızı Cosette\'e bakar. Müfettiş Javert, Valjean\'i yıllarca takip eder. Paris\'te devrim patlak verir ve Valjean, Cosette\'in sevgilisi Marius\'u kurtarır. Sonunda Valjean, Cosette\'in yanında huzur içinde ölür.'
+            },
+            'Hayvan Çiftliği': {
+                tur: 'Distopya',
+                premium: false,
+                tamMetin: 'Manor Çiftliği\'ndeki hayvanlar, insan sahibi Bay Jones\'a karşı ayaklanır ve çiftliği ele geçirir. Başlangıçta tüm hayvanlar eşittir ve adil bir sistem kurarlar. Ancak domuzlar, özellikle Napoleon, yavaş yavaş güç kazanmaya başlar. Zaman içinde domuzlar insanlaşır ve diğer hayvanları ezmeye başlar. Sonunda "Tüm hayvanlar eşittir, ama bazıları daha eşittir" sloganı ortaya çıkar.'
+            },
+            'Suç ve Ceza': {
+                tur: 'Klasik',
+                premium: true,
+                ozet: 'Fakir öğrenci Raskolnikov, bir tefeci kadını öldürür. Suçun ardından vicdanıyla mücadele eder...',
+                tamMetin: 'Fakir öğrenci Raskolnikov, bir tefeci kadını öldürür. Suçun ardından vicdanıyla mücadele eder ve ağır psikolojik bunalıma girer. Müfettiş Porfiry, Raskolnikov\'u şüphelenir ama kanıt bulamaz. Raskolnikov, fahişe Sonya ile tanışır ve onun etkisiyle değişmeye başlar. Sonunda suçunu itiraf eder ve Sibirya\'ya sürgüne gönderilir. Sonya onu takip eder ve birlikte yeni bir hayat kurarlar.'
+            },
+            'Beyaz Diş': {
+                tur: 'Macera',
+                premium: false,
+                tamMetin: 'Beyaz Diş, vahşi doğada doğan kurt-köpek melezi bir hayvandır. İlk başta Kızılderililerle yaşar ve köpek kavgalarında döğüştürülür. Weedon Scott adlı iyi kalpli bir adam onu kurtarır. Beyaz Diş, Scott\'un ailesine adapte olur ve sadık bir evcil hayvana dönüşür. Bir gün eve giren hırsızları durdurur ve bir kahraman olur.'
+            },
+            'Kürk Mantolu Madonna': {
+                tur: 'Roman',
+                premium: false,
+                tamMetin: 'Raif Efendi, sanat tarihçisi olarak Berlin\'de çalışırken Maria Puder adlı Alman bir kadınla tanışır. Maria\'ya aşık olur ve ona "Kürk Mantolu Madonna" der. İkili tutkulu bir aşk yaşar ancak Maria evlidir. Raif, bu aşkı yaşayamayınca hayal kırıklığına uğrar. Yıllar sonra İstanbul\'a döner ve anılarıyla başbaşa kalır.'
+            }
+        };
+
+        // URL\'den kitap ismini al
+        var urlParams = new URLSearchParams(window.location.search);
+        var kitapIsim = urlParams.get('kitap');
+        
+        if (kitapIsim && kitaplar[kitapIsim]) {
+            var kitap = kitaplar[kitapIsim];
+            var premium = localStorage.getItem('premium') === 'true';
+            
+            var html = '<div class="baslik">' + kitapIsim + '</div>';
+            html += '<div class="tur">' + kitap.tur + '</div>';
+            
+            // Premium kitap ve kullanıcı premium değilse
+            if (kitap.premium && !premium) {
+                html += '<div class="icerik">' + kitap.ozet + '</div>';
+                html += '<div class="premium-uyari">';
+                html += '<h4 style="color: #1db954; margin-bottom: 15px;"> Premium İçerik</h4>';
+                html += '<p style="color: #ccc;">Bu kitabın devamını okumak için premium üye olmalısın!</p>';
+                html += '<a href="premium.html" class="btn btn-success mt-3">Premium Ol</a>';
+                html += '</div>';
+            } else {
+                // Ücretsiz kitap veya premium üye
+                html += '<div class="icerik">' + kitap.tamMetin + '</div>';
+            }
+            
+            document.getElementById('kitapKutu').innerHTML = html;
+        } else {
+            document.getElementById('kitapKutu').innerHTML = '<div class="baslik">Kitap bulunamadı</div>';
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
