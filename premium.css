@@ -1,0 +1,119 @@
+/* PREMIUM SAYFA STİLLERİ */
+
+.premium-hero {
+    background: linear-gradient(135deg, var(--arka-plan), var(--kart-arka));
+    border-bottom: 2px solid var(--ana-renk);
+}
+
+.premium-card {
+    background-color: var(--kart-arka);
+    border: 2px solid #3a3a3a;
+    border-radius: 5px;
+    padding: 30px;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.premium-card:hover {
+    border-color: var(--ana-renk);
+    transform: translateY(-5px);
+}
+
+.premium-card-popular {
+    border-color: var(--ana-renk);
+    border-width: 3px;
+}
+
+.premium-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background-color: var(--ana-renk);
+    color: #000;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.premium-badge-save {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.premium-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.premium-header h3 {
+    color: var(--yazi-renk);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.premium-price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 5px;
+}
+
+.premium-price .price {
+    color: var(--ana-renk);
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.premium-price .price-old {
+    color: #888;
+    font-size: 1.2rem;
+    text-decoration: line-through;
+    margin-right: 10px;
+}
+
+.premium-price .period {
+    color: var(--ikincil-yazi);
+    font-size: 1rem;
+}
+
+.premium-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.premium-features li {
+    color: var(--yazi-renk);
+    padding: 12px 0;
+    border-bottom: 1px solid #2a2a2a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.premium-features li:last-child {
+    border-bottom: none;
+}
+
+.premium-features i {
+    font-size: 1.2rem;
+}
+
+.feature-icon i {
+    opacity: 0.9;
+}
+
+/* Accordion override */
+.accordion-button {
+    border-radius: 5px !important;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--ana-renk) !important;
+    color: #000 !important;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
